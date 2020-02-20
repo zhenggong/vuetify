@@ -8,14 +8,26 @@
         <v-list-item-title class="title grey--text text--darken-2">
           Navigation lists
         </v-list-item-title>
-
       </v-list-item-content>
     </v-list-item>
     <v-divider></v-divider>
+
+    <v-list dense nav>
+      <v-list-item v-for="nav_list in nav_lists" :key="nav_list.name">
+        <v-list-item-icon>
+          <v-icon>{{ nav_list.icon }}</v-icon>
+        </v-list-item-icon>
+        <v-list-item-content>
+          <v-list-item-title>{{ nav_list.name }}</v-list-item-title>
+        </v-list-item-content>
+
+      </v-list-item>
+    </v-list>
   </v-container>
 </v-navigation-drawer>
     
     <v-app-bar color="primary" dark app clipped-left>
+    
       <v-app-bar-nav-icon @click="drawer=!drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>Vuetify</v-toolbar-title>
       <v-spacer></v-spacer>
@@ -39,6 +51,11 @@
 
       </v-toolbar-items>
     </v-app-bar>
+
+    <v-content>
+    <router-view />
+    </v-content>
+
     <v-footer color="primary" dark app>
       Vuetify
     </v-footer>
