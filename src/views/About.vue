@@ -20,7 +20,7 @@
                   <!-- ユーザー情報をループ -->
                   <ul>
                     <li v-for="(userInfo, index) in userInfoList" :key="index">
-                      {{ userInfo.name }}
+                      {{ userInfo.name}}
                     </li>
                   </ul>
                 </div>
@@ -40,7 +40,7 @@ export default {
   data: function() {
     return {
       // 空の配列を用意
-      userInfoList: []
+      userInfoList  : []
     };
   },
   methods: {
@@ -51,7 +51,7 @@ export default {
           // 成功時
           console.log(res.data);
           // userInfoListにapiで取得したユーザー情報を格納
-          this.userInfoList = res.data.name;
+          this.userInfoList = res.data.data;
         })
         .catch(err => {
           // 失敗時
