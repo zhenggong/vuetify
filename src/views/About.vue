@@ -20,7 +20,7 @@
                   <!-- ユーザー情報をループ -->
                   <ul>
                     <li v-for="(userInfo, index) in userInfoList" :key="index">
-                      {{ userInfo.name.last }}
+                      {{ userInfo.name }}
                     </li>
                   </ul>
                 </div>
@@ -46,12 +46,12 @@ export default {
   methods: {
     getUserInfo: function() {
       axios
-        .get("https://randomuser.me/api/?results=5")
+        .get("http://localhost:3000/api/v1/users")
         .then(res => {
           // 成功時
           console.log(res.data);
           // userInfoListにapiで取得したユーザー情報を格納
-          this.userInfoList = res.data.results;
+          this.userInfoList = res.data.name;
         })
         .catch(err => {
           // 失敗時
