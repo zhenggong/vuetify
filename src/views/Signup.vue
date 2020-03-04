@@ -71,6 +71,20 @@
     </v-btn>
 
   </v-form>
+    <div class="text-center ma-2">
+    <v-snackbar
+      v-model="snackbar"
+    >
+      {{ snackbartext }}
+      <v-btn
+        color="pink"
+        text
+        @click="snackbar = false"
+      >
+        Close
+      </v-btn>
+    </v-snackbar>
+  </div>
 
     </v-container>
 </template>
@@ -82,6 +96,8 @@ import axios from "axios";
 
   export default {
     data: () => ({
+      snackbar: false,
+      snackbartext: '',
       valid: true,
       name: '',
       nameRules: [
@@ -109,10 +125,14 @@ import axios from "axios";
         .then(res => {
           // 成功時
           console.log(res.data);
+          this.snackbartext = res.data;
+          this.snackbar = true;
         })
         .catch(err => {
           // 失敗時
           console.log(err);
+          this.snackbartext = err;
+          this.snackbar = true;
         });
 
         }
