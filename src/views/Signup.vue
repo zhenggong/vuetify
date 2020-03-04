@@ -26,12 +26,21 @@
       required
     ></v-checkbox>
 
+     <v-btn
+      :disabled="!valid"
+      color="success"
+      class="mr-4"
+      @click="validate"
+    >
+      アカウント登録
+    </v-btn>
+
     <v-btn
       color="error"
       class="mr-4"
       @click="reset"
     >
-      Reset Form
+      クリア
     </v-btn>
 
   </v-form>
@@ -43,13 +52,13 @@
       valid: true,
       name: '',
       nameRules: [
-        v => !!v || 'Name is required',
+        v => !!v || 'お名前が必要',
         v => (v && v.length <= 10) || 'Name must be less than 10 characters',
       ],
       email: '',
       emailRules: [
-        v => !!v || 'E-mail is required',
-        v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+        v => !!v || 'メールアドレスが必要',
+        v => /.+@.+\..+/.test(v) || 'メールアドレスのフォームをご確認ください',
       ],
       checkbox: false,
     }),

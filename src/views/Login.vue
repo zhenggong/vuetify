@@ -1,5 +1,70 @@
 <template>
-  <div class="login">
-    <h1>This is an login page</h1>
-  </div>
+  <v-form
+    ref="form"
+    v-model="valid"
+    lazy-validation
+  >
+    <v-text-field
+      v-model="name"
+      :counter="10"
+      :rules="nameRules"
+      label="お名前"
+      required
+    ></v-text-field>
+
+    <v-text-field
+      v-model="email"
+      :rules="emailRules"
+      label="メールアドレス"
+      required
+    ></v-text-field>
+
+   <v-btn
+      :disabled="!valid"
+      color="success"
+      class="mr-4"
+      @click="validate"
+    >
+      ログイン
+    </v-btn>
+
+    <v-btn
+      color="error"
+      class="mr-4"
+      @click="reset"
+    >
+      クリア
+    </v-btn>
+
+  </v-form>
 </template>
+
+<script>
+  export default {
+    data: () => ({
+      valid: true,
+      name: '',
+      nameRules: [
+        v => !!v || 'お名前が必要',
+        v => (v && v.length <= 10) || 'Name must be less than 10 characters',
+      ],
+      email: '',
+      emailRules: [
+        v => !!v || 'メールアドレスが必要',
+        v => /.+@.+\..+/.test(v) || 'メールアドレスのフォームをご確認ください',
+      ],
+      checkbox: false,
+    }),
+
+    methods: {
+      validate () {
+        if (this.$refs.form.validate()) {
+          this.snackbar = true
+        }
+      },
+      reset () {
+        this.$refs.form.reset()
+      },
+    },
+  }
+</script>
