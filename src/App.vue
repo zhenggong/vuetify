@@ -39,12 +39,8 @@
         </template>
           <v-list>
           <v-list-item
-            v-for="(item, index) in items"
-            :key="index"
-          >
-            <v-list-item-icon>
-              <v-icon>{{ item.icon }}</v-icon>
-            </v-list-item-icon>
+            v-for="(item, index) in accountmenuitems"
+            :key="index" :to="item.link">
             <v-list-item-title>{{ item.name }}</v-list-item-title>
           </v-list-item>
         </v-list>
@@ -57,8 +53,7 @@
           <v-list>
           <v-list-item
             v-for="(item, index) in items"
-            :key="index"
-          >
+            :key="index">
             <v-list-item-icon>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-item-icon>
@@ -92,8 +87,12 @@ export default {
           {name: 'Stack overview',icon: 'mdi-stack-overflow'},
         ],
         accountmenuitems: [
-          {name: 'Sign Up',},
-          {name: 'Login'},
+          {name: 'Sign Up',
+           link:'/signup',
+          },
+          {name: 'Login',
+           link:'/login',
+          },
         ],
         drawer: null,
         nav_lists:[
