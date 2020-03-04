@@ -20,7 +20,7 @@
                   <!-- ユーザー情報をループ -->
                   <ul>
                     <li v-for="(userInfo, index) in userInfoList" :key="index">
-                      {{ userInfo.name}}
+                      {{ userInfo.content}}
                     </li>
                   </ul>
                 </div>
@@ -46,7 +46,7 @@ export default {
   methods: {
     getUserInfo: function() {
       axios
-        .get("http://localhost:3000/api/v1/users")
+        .get("http://localhost:3000/api/v1/microposts")
         .then(res => {
           // 成功時
           console.log(res.data);
