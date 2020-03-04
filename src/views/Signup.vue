@@ -24,8 +24,6 @@
           >Discord Community</a>
         </p>
       </v-col>
-
-      
     </v-row>
 
   <v-form
@@ -78,6 +76,10 @@
 </template>
 
 <script>
+
+// axiosをインポート
+import axios from "axios";
+
   export default {
     data: () => ({
       valid: true,
@@ -98,6 +100,21 @@
       validate () {
         if (this.$refs.form.validate()) {
           this.snackbar = true
+          
+      axios
+        .post("http://localhost:3000/api/v1/users", {
+          name:this.name,
+          email:this.email
+        })
+        .then(res => {
+          // 成功時
+          console.log(res.data);
+        })
+        .catch(err => {
+          // 失敗時
+          console.log(err);
+        });
+
         }
       },
       reset () {
