@@ -1,5 +1,35 @@
 <template>
 <v-content>
+    <v-row justify="center">
+      <v-dialog v-model="dialog" persistent max-width="600px">
+        <template v-slot:activator="{ on }">
+          <v-btn color="primary" dark v-on="on">Open Dialog</v-btn>
+        </template>
+        <v-card>
+          <v-card-title>
+
+            <v-btn color="blue darken-1" text @click="dialog = false">キャンセル</v-btn>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" text @click="submitpost">ツィートする</v-btn>
+          </v-card-title>
+          <v-card-text>
+            <v-container fluid>
+    <v-row>
+      <v-col fluid>
+        <v-textarea
+          v-model="micropost"
+          solo
+          name="input-7-4"
+          label="今どうしてる?"
+        ></v-textarea>
+      </v-col>
+    </v-row>
+
+            </v-container>
+          </v-card-text>
+        </v-card>
+      </v-dialog>
+    </v-row>
         <v-container fluid fill-height>
           <v-flex xs12 sm6 offset-sm3>
             <v-card>
@@ -11,7 +41,7 @@
               <v-card-actions>
                 <!-- 情報を取得するボタンを設置 -->
                 <v-btn flat outline color="primary" @click="getUserInfo();"
-                  >データを取得</v-btn
+                  >micropostを取得</v-btn>
                 >
               </v-card-actions>
 
@@ -40,7 +70,9 @@ export default {
   data: function() {
     return {
       // 空の配列を用意
-      userInfoList  : []
+      userInfoList  : [],
+      dialog: false,
+      content: this.micropost
     };
   },
   methods: {
@@ -57,7 +89,23 @@ export default {
           // 失敗時
           console.log(err);
         });
+    },
+    submitpost: function() {
+      axios
+        .post("http://localhost:3000/api/v1/microposts",{
+          content:this.micropost,
+          user_id:1
+        })
+        .then(res => {
+          // 成功時
+          console.log(res.data);
+        })
+        .catch(err => {
+          // 失敗時
+          console.log(err);
+        });
     }
+    
   }
 };
 </script>
