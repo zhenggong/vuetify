@@ -114,9 +114,7 @@ import axios from "axios";
 
     methods: {
       validate () {
-        if (this.$refs.form.validate()) {
-          this.snackbar = true
-          
+        if (this.$refs.form.validate()) {     
       axios
         .post("http://localhost:3000/api/v1/users", {
           name:this.name,
