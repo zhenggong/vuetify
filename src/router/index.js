@@ -29,7 +29,12 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: () => import('../views/Login.vue'),
-  }
+  },
+  {
+    path: '/micropost',
+    name: 'Micropost',
+    component: () => import('../views/Micropost.vue'),
+  },
 ]
 
 const router = new VueRouter({
