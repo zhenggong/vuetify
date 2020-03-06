@@ -46,19 +46,12 @@
       required
     ></v-text-field>
 
-<v-text-field
+    <v-text-field
       v-model="password"
       :rules="passwordRules"
       label="パスワード"
       required
     ></v-text-field>
-
-        <!-- <v-text-field
-      v-model="passwordconfirm"
-      :rules="passwordConfirmRules"
-      label="パスワード確認"
-      required
-    ></v-text-field> -->
 
     <v-checkbox
       v-model="checkbox"
@@ -113,6 +106,7 @@ import axios from "axios";
       snackbar: false,
       snackbartext: '',
       valid: true,
+
       name: '',
       nameRules: [
         v => !!v || 'お名前が必要',
@@ -128,11 +122,6 @@ import axios from "axios";
         v => !!v || 'Password is required',
         v => (v && v.length >= 6) || 'Password must be more than 6 characters',
       ],
-      // passwordconfirm: '',
-      // passwordConfirmRules: [
-      //   v => !!v || 'Password Confirm is required',
-      //   v => v === password || 'Password confirm is equal to password',
-      // ],
       checkbox: false,
     }),
 
