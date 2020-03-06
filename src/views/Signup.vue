@@ -46,6 +46,20 @@
       required
     ></v-text-field>
 
+<v-text-field
+      v-model="password"
+      :rules="passwordRules"
+      label="パスワード"
+      required
+    ></v-text-field>
+
+        <!-- <v-text-field
+      v-model="passwordconfirm"
+      :rules="passwordConfirmRules"
+      label="パスワード確認"
+      required
+    ></v-text-field> -->
+
     <v-checkbox
       v-model="checkbox"
       :rules="[v => !!v || 'ご利用には利用規約に同意する必要があります!']"
@@ -109,6 +123,16 @@ import axios from "axios";
         v => !!v || 'メールアドレスが必要',
         v => /.+@.+\..+/.test(v) || 'メールアドレスのフォームをご確認ください',
       ],
+      password: '',
+      passwordRules: [
+        v => !!v || 'Password is required',
+        v => (v && v.length >= 6) || 'Password must be more than 6 characters',
+      ],
+      // passwordconfirm: '',
+      // passwordConfirmRules: [
+      //   v => !!v || 'Password Confirm is required',
+      //   v => v === password || 'Password confirm is equal to password',
+      // ],
       checkbox: false,
     }),
 
@@ -118,7 +142,8 @@ import axios from "axios";
       axios
         .post("http://localhost:3000/api/v1/users", {
           name:this.name,
-          email:this.email
+          email:this.email,
+          password:this.password
         })
         .then(res => {
           // 成功時
