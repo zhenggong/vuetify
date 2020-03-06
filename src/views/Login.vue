@@ -40,9 +40,9 @@
     ></v-text-field>
 
     <v-text-field
-      v-model="email"
-      :rules="emailRules"
-      label="メールアドレス"
+      v-model="password"
+      :rules="passwordRules"
+      label="パスワード"
       required
     ></v-text-field>
 
@@ -67,6 +67,7 @@
 </template>
 
 <script>
+import axios from "axios";
   export default {
     data: () => ({
       valid: true,
@@ -75,10 +76,10 @@
         v => !!v || 'お名前が必要',
         v => (v && v.length <= 10) || 'Name must be less than 10 characters',
       ],
-      email: '',
-      emailRules: [
-        v => !!v || 'メールアドレスが必要',
-        v => /.+@.+\..+/.test(v) || 'メールアドレスのフォームをご確認ください',
+      password: '',
+      passwordRules: [
+        v => !!v || 'Password is required',
+        v => (v && v.length >= 6) || 'Password must be more than 6 characters',
       ],
       checkbox: false,
     }),
@@ -86,7 +87,23 @@
     methods: {
       validate () {
         if (this.$refs.form.validate()) {
-          this.snackbar = true
+      axios
+        .post("http://localhost:3000/api/v1/login/login", {
+          name:this.name,
+          password:this.password
+        })
+        .then(res => {
+          // 成功時
+          console.log(res.data);
+          this.snackbartext = res.data;
+          this.snackbar = true;
+        })
+        .catch(err => {
+          // 失敗時
+          console.log(err);
+          this.snackbartext = err;
+          this.snackbar = true;
+        });
         }
       },
       reset () {
