@@ -68,6 +68,7 @@
 
 <script>
 import axios from "axios";
+import store from "@/store/index.js";
   export default {
     data: () => ({
       valid: true,
@@ -95,14 +96,17 @@ import axios from "axios";
         .then(res => {
           // 成功時
           console.log(res.data);
-          this.snackbartext = res.data;
-          this.snackbar = true;
-        })
+                      // ログイン情報を store に保存
+            store.dispatch("setLoginInfo", res.data.data)
+            // 元の画面に戻る
+            //this.$router.push({path: "backuri" in this.$route.query && this.$route.query.backuri.match(/^\//) ? this.$route.query.backuri : '/'})
+            //this.snackbartext = this.$store.state.auth.login.token;
+            console.log(store.state.auth.login.token);
+
+       })
         .catch(err => {
           // 失敗時
           console.log(err);
-          this.snackbartext = err;
-          this.snackbar = true;
         });
         }
       },
