@@ -145,12 +145,12 @@ export default {
         .catch(err => {
           // 失敗時
           console.log(err);
-        //           // トークンが正しくなければログイン画面にリダイレクト
-        // if (err.response.status == 401) {
-        //   this.$router.push({path: "/login", query: {backuri: this.$route.fullPath}})
-        // } else {
-        //   alert("情報を取得できませんでした。時間をおいてやり直してください。")
-        // }
+                  // トークンが正しくなければログイン画面にリダイレクト
+        if (err.response.status == 401) {
+          this.$router.push({path: "/login", query: {backuri: this.$route.fullPath}})
+        } else {
+          alert("情報を取得できませんでした。時間をおいてやり直してください。")
+        }
         });
     },
     submitpost: function() {
