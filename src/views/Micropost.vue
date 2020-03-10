@@ -106,7 +106,6 @@
 import axios from "axios";
 import store from "@/store/index.js"
 export default {
-  name: 'Micropost',
   data: function() {
     return {
       // 空の配列を用意
@@ -133,8 +132,11 @@ export default {
     getUserInfo: function() {
       axios
         .get("http://localhost:3000/api/v1/microposts",
-            {headers: {"Authorization": "Bearer " + store.state.auth.login.token}
-        }).then(res => {
+            {headers: {
+                  Authorization: `Bearer ${store.state.auth.login.token}`
+              }        
+            }
+       ).then(res => {
           // 成功時
           console.log(res.data);
           // userInfoListにapiで取得した情報を格納
@@ -143,12 +145,12 @@ export default {
         .catch(err => {
           // 失敗時
           console.log(err);
-                  // トークンが正しくなければログイン画面にリダイレクト
-        if (err.response.status == 401) {
-          this.$router.push({path: "/login", query: {backuri: this.$route.fullPath}})
-        } else {
-          alert("情報を取得できませんでした。時間をおいてやり直してください。")
-        }
+        //           // トークンが正しくなければログイン画面にリダイレクト
+        // if (err.response.status == 401) {
+        //   this.$router.push({path: "/login", query: {backuri: this.$route.fullPath}})
+        // } else {
+        //   alert("情報を取得できませんでした。時間をおいてやり直してください。")
+        // }
         });
     },
     submitpost: function() {

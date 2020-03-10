@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import "nprogress/nprogress.css"
+import store from "@/store/index.js"
+
 
 Vue.use(VueRouter)
 
@@ -9,32 +11,38 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+    meta: { isPublic: true },
   },
   {
     path: '/about',
     name: 'About',
     component: () => import('../views/About.vue'),
+    meta: { isPublic: true },
   },
   {
     path: '/enterprise',
     name: 'Enterprise',
-    component: () => import('../views/Enterprise.vue')
+    component: () => import('../views/Enterprise.vue'),
+    meta: { isPublic: true },
   },
   {
     path: '/signup',
     name: 'Signup',
     component: () => import('../views/Signup.vue'),
+    meta: { isPublic: true },
   },
   {
     path: '/login',
     name: 'Login',
     component: () => import('../views/Login.vue'),
+    meta: { isPublic: true },
   },
   {
     path: '/micropost',
     name: 'Micropost',
     component: () => import('../views/Micropost.vue'),
+    meta: { isPublic: false },
   },
 ]
 
@@ -44,23 +52,14 @@ const router = new VueRouter({
   routes
 })
 
-// // router gards
-// router.beforeEach((to,next) => {
-//   NProgress.start()
-//   // トークンが存在、かつログイン有効期限を過ぎてない場合、またはログイン画面の場合
-//   if ((store.state.auth.login.token && store.state.auth.login.expire > (new Date()).getTime()) || to.matched.some(page => {
-//     // ログイン画面はリダイレクト対象外 (他にも404ページなどいくつか対象外にする必要があるかも)
-//     return (page.path === '/login')
-//   })) {
-//     next()
-//   } else {
-//     // ログイン画面に飛ばす。ログイン後に元の画面に戻れるよう、backuriパラメーターにリダイレクト前のURLを入れる
-//     next({path: '/login', query: {backuri: to.fullPath}})
-//   }
-// })
+router.beforeEach((to, from, next) => {
+  // isPublic でない場合(=認証が必要な場合)、かつ、ログインしていない場合
+  if (to.matched.some(record => !record.meta.isPublic) && !store.state.auth.login.token) {
+    next({ path: '/login', query: { redirect: to.fullPath }});
+  } else {
+    next();
+  }
+});
 
-// router.afterEach(() => {
-//   NProgress.done()
-// })
-
+router.beforeEach(  console.log("router.beforeEach") )
 export default router
