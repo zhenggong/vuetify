@@ -47,7 +47,6 @@
             v-for="(item, index) in accountmenuitems"
             :key="index"
             :to="item.link"
-            @click="item.click"
             >
             <v-list-item-title>{{ item.name }}</v-list-item-title>
           </v-list-item>
