@@ -42,19 +42,23 @@
         <template v-slot:activator="{on}">
         <v-btn v-on="on" text><v-icon>mdi-account</v-icon></v-btn>
         </template>
-          <v-list>
-          <v-list-item
-            v-for="(item, index) in accountmenuitems"
-            :key="index"
-            :to="item.link"
-            >
-            <v-list-item-title>{{ item.name }}</v-list-item-title>
-          </v-list-item>
 
-        <v-list-item @click="showlogoutdialog">
-            <v-list-item-title text>Logout</v-list-item-title>
-          </v-list-item>
+        <v-list>
+        <v-list-item v-if="!islogin" hiden=true to="/signup">
+          <v-list-item-title text>Signup</v-list-item-title>
+        </v-list-item>
 
+        <v-list-item v-if="!islogin" hiden=true to="/login">
+          <v-list-item-title text>Login</v-list-item-title>
+        </v-list-item>
+
+        <v-list-item v-if="islogin" hiden=true @click="showlogoutdialog">
+          <v-list-item-title text>Setting</v-list-item-title>
+        </v-list-item>
+
+        <v-list-item v-if="islogin" hiden=true @click="showlogoutdialog">
+          <v-list-item-title text>Logout</v-list-item-title>
+        </v-list-item>
         </v-list>
       </v-menu>
 
@@ -79,29 +83,11 @@
           <!-- <v-btn color="primary" dark v-on="on">Open Dialog</v-btn> -->
         </template>
         <v-card>
-        <v-container>     
-      </v-container>
           <v-card-title>
-
             <v-btn color="blue darken-1" text @click="dialog = false">キャンセル</v-btn>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text @click="logout">ツィートする</v-btn>
+            <v-btn color="blue darken-1" text @click="logout">ログアウト</v-btn>
           </v-card-title>
-          <v-card-text>
-            <v-container fluid>
-    <v-row>
-      <v-col fluid>
-        <v-textarea
-          v-model="micropost"
-          solo
-          name="input-7-4"
-          label="今どうしてる?"
-        ></v-textarea>
-      </v-col>
-    </v-row>
-
-            </v-container>
-          </v-card-text>
         </v-card>
       </v-dialog>
 
@@ -145,9 +131,11 @@
 </template>
 
 <script>
+import store from "@/store/index.js";
 export default {
   data(){
     return{
+        islogin:store.state.auth.login.token,
         items: [
           {name: 'Consulting and suppourt',icon: 'mdi-vuetify'},
           {name: 'Discord community',icon: 'mdi-discord'},
@@ -179,11 +167,15 @@ export default {
   },
   methods: {
     logout: function(){
+      store.dispatch("setLoginInfo", false)
+      this.dialog = false;
+      this.$router.push('/login')
     },
     showlogoutdialog: function(){
       this.dialog = true;
     },
     cancel: function(){
+      this.dialog = false;
     },
 
 

@@ -100,6 +100,7 @@
 
 // axiosをインポート
 import axios from "axios";
+import store from "@/store/index.js";
   export default {
     data: () => ({
       snackbar: false,
@@ -136,8 +137,10 @@ import axios from "axios";
         .then(res => {
           // 成功時
           console.log(res.data);
-          this.snackbartext = res.data;
+          this.snackbartext = res.data.data.token
           this.snackbar = true;
+          store.dispatch("setLoginInfo", res.data.data)
+          this.$router.push('/micropost')
         })
         .catch(err => {
           // 失敗時

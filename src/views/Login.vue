@@ -102,7 +102,7 @@ import store from "@/store/index.js";
             //this.$router.push({path: "backuri" in this.$route.query && this.$route.query.backuri.match(/^\//) ? this.$route.query.backuri : '/'})
             //this.snackbartext = this.$store.state.auth.login.token;
             console.log(store.state.auth.login.token);
-
+            this.$router.push('/micropost')
        })
         .catch(err => {
           // 失敗時
