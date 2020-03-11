@@ -28,7 +28,7 @@
     
     <v-app-bar 
     color="primary" dark app clipped-left
-    dense=true
+    dense
     >
     
       <v-app-bar-nav-icon @click="drawer=!drawer"></v-app-bar-nav-icon>
@@ -45,7 +45,10 @@
           <v-list>
           <v-list-item
             v-for="(item, index) in accountmenuitems"
-            :key="index" :to="item.link">
+            :key="index"
+            :to="item.link"
+            @click="item.click"
+            >
             <v-list-item-title>{{ item.name }}</v-list-item-title>
           </v-list-item>
         </v-list>
@@ -55,7 +58,7 @@
         <template v-slot:activator="{on}">
         <v-btn v-on="on" text>Support<v-icon>mdi-menu-down</v-icon></v-btn>
         </template>
-          <v-list>
+        <v-list>
           <v-list-item
             v-for="(item, index) in items"
             :key="index">
@@ -66,6 +69,37 @@
           </v-list-item>
         </v-list>
       </v-menu>
+
+      <v-dialog v-model="dialog" persistent max-width="600px">
+        <template>
+          <!-- <v-btn color="primary" dark v-on="on">Open Dialog</v-btn> -->
+        </template>
+        <v-card>
+        <v-container>     
+      </v-container>
+          <v-card-title>
+
+            <v-btn color="blue darken-1" text @click="dialog = false">キャンセル</v-btn>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" text @click="logout">ツィートする</v-btn>
+          </v-card-title>
+          <v-card-text>
+            <v-container fluid>
+    <v-row>
+      <v-col fluid>
+        <v-textarea
+          v-model="micropost"
+          solo
+          name="input-7-4"
+          label="今どうしてる?"
+        ></v-textarea>
+      </v-col>
+    </v-row>
+
+            </v-container>
+          </v-card-text>
+        </v-card>
+      </v-dialog>
 
       </v-toolbar-items>
       <template v-slot:extension>
@@ -85,9 +119,7 @@
             </v-tab>
           </v-tabs>
         </template>
-    </v-app-bar
 
-    >
     <v-tabs-items v-model="model">
         <v-tab-item
           v-for="i in 3"
@@ -126,6 +158,9 @@ export default {
           {name: 'Login',
            link:'/login',
           },
+          {name: 'Logout',
+          click:'showlogoutdialog'
+          },
         ],
         drawer: null,
         nav_lists:[
@@ -136,7 +171,21 @@ export default {
          {name: 'Directives',icon: 'mdi-function'},
          {name: 'Preminum themes',icon: 'mdi-vuetify'},
         ],
+        dialog: false,
+        micropost: false,
+        model:false
     }
+  },
+  methods: {
+    logout: function(){
+    },
+    showlogoutdialog: function(){
+      this.dialog = true;
+    },
+    cancel: function(){
+    },
+
+
   }
 }
 </script>
