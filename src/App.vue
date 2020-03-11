@@ -50,6 +50,11 @@
             >
             <v-list-item-title>{{ item.name }}</v-list-item-title>
           </v-list-item>
+
+        <v-list-item @click="showlogoutdialog">
+            <v-list-item-title text>Logout</v-list-item-title>
+          </v-list-item>
+
         </v-list>
       </v-menu>
 
@@ -157,9 +162,6 @@ export default {
           {name: 'Login',
            link:'/login',
           },
-          {name: 'Logout',
-          click:'showlogoutdialog'
-          },
         ],
         drawer: null,
         nav_lists:[
@@ -171,7 +173,7 @@ export default {
          {name: 'Preminum themes',icon: 'mdi-vuetify'},
         ],
         dialog: false,
-        micropost: false,
+        micropost: "",
         model:false
     }
   },
