@@ -90,34 +90,7 @@
           </v-card-title>
         </v-card>
       </v-dialog>
-
       </v-toolbar-items>
-      <template v-slot:extension>
-          <v-tabs
-            v-model="model"
-            centered
-            color="black"
-            background-color="white"
-            slider-color="yellow">
-            <v-tab
-              v-for="i in 3"
-              :key="i"
-              :href="`#tab-${i}`"
-              color="white"
-            >
-              Item {{ i }}
-            </v-tab>
-          </v-tabs>
-        </template>
-
-    <v-tabs-items v-model="model">
-        <v-tab-item
-          v-for="i in 3"
-          :key="i"
-          :value="`tab-${i}`"
-        >
-        </v-tab-item>
-      </v-tabs-items>
     </v-app-bar>
 
     <v-content>

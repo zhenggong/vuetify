@@ -21,12 +21,6 @@ const routes = [
     meta: { isPublic: true },
   },
   {
-    path: '/enterprise',
-    name: 'Enterprise',
-    component: () => import('../views/Enterprise.vue'),
-    meta: { isPublic: true },
-  },
-  {
     path: '/signup',
     name: 'Signup',
     component: () => import('../views/Signup.vue'),
@@ -43,6 +37,26 @@ const routes = [
     name: 'Micropost',
     component: () => import('../views/Micropost.vue'),
     meta: { isPublic: false },
+  },
+  {
+    path: '/enterprise',
+    name: 'Enterprise',
+    component: () => import('../views/Enterprise.vue'),
+    children: [
+      {
+        path: '/about2',
+        name: 'About2',
+        component: () => import('../views/About2.vue'),
+        meta: { isPublic: true },
+      },
+      {
+        path: '/about3',
+        name: 'About3',
+        component: () => import('../views/About3.vue'),
+        meta: { isPublic: true },
+      },
+    ],
+    meta: { isPublic: true },
   },
 ]
 
