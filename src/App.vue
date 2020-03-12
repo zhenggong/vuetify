@@ -143,14 +143,6 @@ export default {
           {name: 'Github issue board',icon: 'mdi-github-face'},
           {name: 'Stack overview',icon: 'mdi-stack-overflow'},
         ],
-        accountmenuitems: [
-          {name: 'Sign Up',
-           link:'/signup',
-          },
-          {name: 'Login',
-           link:'/login',
-          },
-        ],
         drawer: null,
         nav_lists:[
          {name: 'Getting Started',icon: 'mdi-vuetify'},
