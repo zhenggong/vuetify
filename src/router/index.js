@@ -15,6 +15,12 @@ const routes = [
     meta: { isPublic: true },
   },
   {
+    path: '/about4',
+    name: 'About4',
+    component: () => import('../views/About4.vue'),
+    meta: { isPublic: true },
+  },
+  {
     path: '/about',
     name: 'About',
     component: () => import('../views/About.vue'),
