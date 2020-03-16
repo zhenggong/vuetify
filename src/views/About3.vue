@@ -3,15 +3,17 @@
         <v-container fluid fill-height>
           <v-flex xs12 sm6 offset-sm3>
             <v-card>
-              <v-img
-                src="https://cdn.vuetifyjs.com/images/cards/desert.jpg"
-                aspect-ratio="2.75"
-              ></v-img>
 
               <v-card-actions>
                 <!-- ユーザー情報を取得するボタンを設置 -->
-                <v-btn flat outline color="primary" @click="getUserInfo();"
-                  >データを取得</v-btn
+                <v-btn outlined color="primary" @click="getUserInfo();"
+                  >カテゴリーを取得</v-btn
+                >
+                <v-btn outlined color="primary" @click="getUserInfo();"
+                  >カテゴリーをフォロー</v-btn
+                >
+                <v-btn outlined color="primary" @click="getUserInfo();"
+                  >カテゴリーを作る</v-btn
                 >
               </v-card-actions>
 
@@ -34,6 +36,7 @@
 <script>
 // axiosをインポート
 import axios from "axios";
+import store from "@/store/index.js"
 
 export default {
   name: 'About3',
@@ -46,8 +49,12 @@ export default {
   methods: {
     getUserInfo: function() {
       axios
-        .get("http://localhost:3000/api/v1/microposts")
-        .then(res => {
+        .get("http://localhost:3000/api/v1/microposts",
+            {headers: {
+                  Authorization: `Bearer ${store.state.auth.login.token}`
+              }        
+            }
+        ).then(res => {
           // 成功時
           console.log(res.data);
           // userInfoListにapiで取得したユーザー情報を格納
