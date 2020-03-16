@@ -1,64 +1,95 @@
 <template>
-<v-content>
-        <v-container fluid fill-height>
-          <v-flex xs12 sm6 offset-sm3>
-            <v-card>
-              <v-img
-                src="https://cdn.vuetifyjs.com/images/cards/desert.jpg"
-                aspect-ratio="2.75"
-              ></v-img>
+  <v-container>
 
-              <v-card-actions>
-                <!-- ユーザー情報を取得するボタンを設置 -->
-                <v-btn flat outline color="primary" @click="getUserInfo();"
-                  >データを取得</v-btn
+      <v-row>
+        <editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
+            <div >
+                <v-btn text icon
+                :class="{ 'is-active': isActive.heading({ level: 1 }) }"
+                @click="commands.heading({level: 1})"
                 >
-              </v-card-actions>
+                   <b> H1 </b>
+                </v-btn>
+                <v-btn text icon
+                :class="{ 'is-active': isActive.bold() }"
+                @click="commands.bold"
+                >
+                    <v-icon>mdi-format-bold</v-icon>
+                </v-btn>
 
-              <v-card-title primary-title>
-                <div>
-                  <!-- ユーザー情報をループ -->
-                  <ul>
-                    <li v-for="(userInfo, index) in userInfoList" :key="index">
-                      {{ userInfo.content}}
-                    </li>
-                  </ul>
-                </div>
-              </v-card-title>
-            </v-card>
-          </v-flex>
-        </v-container>
-      </v-content>
+                <v-btn text icon
+                :class="{ 'is-active': isActive.underline() }"
+                @click="commands.underline"
+                >
+                    <v-icon>mdi-format-underline</v-icon>
+                </v-btn>
+
+               <v-btn text icon
+               @click="loadImage(commands.image)">
+                   <v-icon>mdi-image</v-icon>
+               </v-btn>
+            </div>            
+        </editor-menu-bar>
+    </v-row>
+    <v-row>
+        <v-col cols=12 >
+            <editor-content class="editor-box" :editor="editor"/>
+        </v-col>
+    </v-row>
+              <v-btn color="primary">完成</v-btn>
+  </v-container>
 </template>
 
-<script>
-// axiosをインポート
-import axios from "axios";
 
+<script>
+import { Editor, EditorContent, EditorMenuBar  } from 'tiptap';
+import { Heading, 
+        Bold, 
+        Underline,
+        Image } from 'tiptap-extensions';
 export default {
-  name: 'About3',
-  data: function() {
-    return {
-      // 空の配列を用意
-      userInfoList  : []
-    };
+components: {
+    EditorContent,
+    EditorMenuBar,
   },
-  methods: {
-    getUserInfo: function() {
-      axios
-        .get("http://localhost:3000/api/v1/microposts")
-        .then(res => {
-          // 成功時
-          console.log(res.data);
-          // userInfoListにapiで取得したユーザー情報を格納
-          this.userInfoList = res.data.data;
-        })
-        .catch(err => {
-          // 失敗時
-          console.log(err);
-        });
+  data() {
+    return {
+      editor: new Editor({
+        content: `Type here...
+        `,
+        extensions:[
+            new Heading({levels: [1,2,3]}),
+            new Bold(),
+            new Underline(),
+            new Image(),
+        ]
+      })
     }
-  }
+  },
+  methods:{
+      loadImage:function(command){
+          command({src: "https://66.media.tumblr.com/dcd3d24b79d78a3ee0f9192246e727f1/tumblr_o00xgqMhPM1qak053o1_400.gif"})
+      }
+  },
+  beforeDestroy() {
+    this.editor.destroy()
+  },
 };
 </script>
+<style >
+.editor-box> * {
+    border-color: grey;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.is-active{
+    border-color: grey;
+    border-style: solid;
+    border-width: 1px;
+}
+ /* *:focus {
+    outline: none;
+}  */
+</style>
 
