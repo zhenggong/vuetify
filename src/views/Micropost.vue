@@ -1,10 +1,5 @@
 <template>
 <v-content>
-    <v-tabs height = 20>
-      <v-tab>Item One</v-tab>
-      <v-tab>Item Two</v-tab>
-      <v-tab>Item Three</v-tab>
-    </v-tabs>
     <v-row justify="center">
       <v-dialog v-model="dialog" persistent max-width="600px">
         <template v-slot:activator="{ on }">
@@ -45,8 +40,8 @@
         <v-textarea
           v-model="micropost"
           solo
-          name="input-7-4"
-          label="今どうしてる?"
+          name="input-7-3"
+          label="タイトル"
         ></v-textarea>
       </v-col>
     </v-row>
