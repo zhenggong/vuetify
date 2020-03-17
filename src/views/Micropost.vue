@@ -156,16 +156,17 @@ export default {
     submitpost: function() {
       this.post_lp_active = true;
       this.post_lp_indeterminate = true;
+      axios.defaults.headers.common = {'Authorization': `Bearer ${store.state.auth.login.token}`}
       axios
         .post("http://localhost:3000/api/v1/microposts",{
           content:this.micropost,
-          user_id:1
+          user_id:1,
         })
         .then(res => {
           //ログの前に書く必要があります、後ろに置くと効かない
           this.dialog = false;
           // 成功時
-          this.console.log(res.data);
+          console.log(res.data);
 
         })
         .catch(err => {
