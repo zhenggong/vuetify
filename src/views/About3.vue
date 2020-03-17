@@ -49,7 +49,7 @@ export default {
   methods: {
     getUserInfo: function() {
       axios
-        .get("http://localhost:3000/api/v1/microposts",
+        .get("http://localhost:3000/api/v1/categorys",
             {headers: {
                   Authorization: `Bearer ${store.state.auth.login.token}`
               }        
