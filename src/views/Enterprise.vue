@@ -2,9 +2,29 @@
   <div>
     <v-container>
       <!-- ユーザー情報を取得するボタンを設置 -->
+      <v-dialog v-model="dialog" persistent max-width="600px">
+        <template v-slot:activator="{ on }">
+          <v-btn outlined color="primary" v-on="on">カテゴリーを作る</v-btn>
+        </template>
+        <v-card>
+          <v-card-title>
+            <v-btn color="blue darken-1" text @click="dialog = false">キャンセル</v-btn>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" text @click="submitpost">ツィートする</v-btn>
+          </v-card-title>
+          <v-card-text>
+            <v-container fluid>
+              <v-row>
+                <v-col fluid>
+                  <v-textarea v-model="micropost" solo name="input-7-3" label="タイトル"></v-textarea>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-card-text>
+        </v-card>
+      </v-dialog>
       <v-btn outlined color="primary" @click="getUserInfo();">カテゴリーを取得</v-btn>
       <v-btn outlined color="primary" @click="getUserInfo();">カテゴリーをフォロー</v-btn>
-      <v-btn outlined color="primary" @click="getUserInfo();">カテゴリーを作る</v-btn>
     </v-container>
     <v-tabs class="tabs" height="46px" v-model="activeTab">
       <v-tab v-for="tab in tabs" :key="tab.id" :to="tab.route" exact>{{ tab.name }}</v-tab>
