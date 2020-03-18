@@ -160,7 +160,7 @@ export default {
       axios
         .post("http://localhost:3000/api/v1/microposts",{
           content:this.micropost,
-          user_id:1,
+          user_id:store.state.auth.login.user_id,
         })
         .then(res => {
           //ログの前に書く必要があります、後ろに置くと効かない

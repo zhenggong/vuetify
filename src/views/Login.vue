@@ -101,7 +101,7 @@ import store from "@/store/index.js";
             // 元の画面に戻る
             //this.$router.push({path: "backuri" in this.$route.query && this.$route.query.backuri.match(/^\//) ? this.$route.query.backuri : '/'})
             //this.snackbartext = this.$store.state.auth.login.token;
-            console.log(store.state.auth.login.token);
+            console.log(store.state.auth.login.user_id);
             this.$router.push('/micropost')
        })
         .catch(err => {
