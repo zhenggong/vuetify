@@ -39,6 +39,7 @@ import store from "@/store/index.js";
 export default {
   data() {
     return {
+      dialog: false,
       activeTab: "/about2",
       tabs: [
         { id: 1, name: "About2", route: "/about2" },
@@ -78,7 +79,7 @@ export default {
           }
         });
     },
-    submitCategorys() {
+    submitpost() {
       this.post_lp_active = true;
       this.post_lp_indeterminate = true;
       axios.defaults.headers.common = {
