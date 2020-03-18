@@ -1,34 +1,27 @@
 <template>
-<v-content>
-        <v-container fluid fill-height>
-          <v-flex xs12 sm6 offset-sm3>
-            <v-card>
-              <v-img
-                src="https://cdn.vuetifyjs.com/images/cards/desert.jpg"
-                aspect-ratio="2.75"
-              ></v-img>
+  <v-content>
+    <v-container fluid fill-height>
+      <v-flex xs12 sm6 offset-sm3>
+        <v-card>
+          <v-img src="https://cdn.vuetifyjs.com/images/cards/desert.jpg" aspect-ratio="2.75"></v-img>
 
-              <v-card-actions>
-                <!-- ユーザー情報を取得するボタンを設置 -->
-                <v-btn flat outline color="primary" @click="getUserInfo();"
-                  >データを取得</v-btn
-                >
-              </v-card-actions>
+          <v-card-actions>
+            <!-- ユーザー情報を取得するボタンを設置 -->
+            <v-btn flat outline color="primary" @click="getUserInfo();">データを取得</v-btn>
+          </v-card-actions>
 
-              <v-card-title primary-title>
-                <div>
-                  <!-- ユーザー情報をループ -->
-                  <ul>
-                    <li v-for="(userInfo, index) in userInfoList" :key="index">
-                      {{ userInfo.content}}
-                    </li>
-                  </ul>
-                </div>
-              </v-card-title>
-            </v-card>
-          </v-flex>
-        </v-container>
-      </v-content>
+          <v-card-title primary-title>
+            <div>
+              <!-- ユーザー情報をループ -->
+              <ul>
+                <li v-for="(userInfo, index) in userInfoList" :key="index">{{ userInfo.content}}</li>
+              </ul>
+            </div>
+          </v-card-title>
+        </v-card>
+      </v-flex>
+    </v-container>
+  </v-content>
 </template>
 
 <script>
@@ -36,11 +29,11 @@
 import axios from "axios";
 
 export default {
-  name: 'About2',
+  name: "About2",
   data: function() {
     return {
       // 空の配列を用意
-      userInfoList  : []
+      userInfoList: []
     };
   },
   methods: {

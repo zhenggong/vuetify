@@ -75,11 +75,11 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   // isPublic でない場合(=認証が必要な場合)、かつ、ログインしていない場合
   if (to.matched.some(record => !record.meta.isPublic) && !store.state.auth.login.token) {
-    next({ path: '/login', query: { redirect: to.fullPath }});
+    next({ path: '/login', query: { redirect: to.fullPath } });
   } else {
     next();
   }
 });
 
-router.beforeEach(  console.log("router.beforeEach") )
+router.beforeEach(console.log("router.beforeEach"))
 export default router
