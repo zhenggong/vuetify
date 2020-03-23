@@ -39,6 +39,18 @@ const routes = [
     meta: { isPublic: true },
   },
   {
+    path: '/newcategory',
+    name: 'Newcategory',
+    component: () => import('../views/Newcategory.vue'),
+    meta: { isPublic: false },
+  },
+  {
+    path: '/allcategory',
+    name: 'Allcategory',
+    component: () => import('../views/Allcategory.vue'),
+    meta: { isPublic: false },
+  },
+  {
     path: '/micropost',
     name: 'Micropost',
     component: () => import('../views/Micropost.vue'),

@@ -10,7 +10,7 @@
         <v-divider></v-divider>
 
         <v-list dense nav>
-          <v-list-item v-for="nav_list in nav_lists" :key="nav_list.name">
+          <v-list-item v-for="nav_list in nav_lists" :key="nav_list.name" :to="nav_list.link">
             <v-list-item-icon>
               <v-icon>{{ nav_list.icon }}</v-icon>
             </v-list-item-icon>
@@ -108,8 +108,8 @@ export default {
       ],
       drawer: null,
       nav_lists: [
-        { name: "Getting Started", icon: "mdi-vuetify" },
-        { name: "Customization", icon: "mdi-cogs" },
+        { name: "カテゴリーを作る", icon: "mdi-vuetify", link: "/newcategory" },
+        { name: "カテゴリーリスト", icon: "mdi-cogs", link: "/allcategory" },
         { name: "Styles & animations", icon: "mdi-palette" },
         { name: "UI Components", icon: "mdi-view-dashboard" },
         { name: "Directives", icon: "mdi-function" },
