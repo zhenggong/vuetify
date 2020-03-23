@@ -1,49 +1,54 @@
 <template>
   <v-container>
-    <v-row class="text-center">
-      <v-col class="mb-4">
-        <h1 class="display-2 font-weight-bold mb-3">New categorys</h1>
+    <h1 class="display-1 mb-2">Edit Card</h1>
+    <v-card max-width="344" class="mx-auto">
+      <v-list-item>
+        <v-list-item-avatar color="grey"></v-list-item-avatar>
+        <v-list-item-content>
+          <v-list-item-title class="headline">Our Changing Planet</v-list-item-title>
+          <v-list-item-subtitle>by Kurt Wagner</v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
 
-        <p class="subheading font-weight-regular">
-          For help and collaboration with other Vuetify developers,
-          <br />please join our online
-          <a
-            href="https://community.vuetifyjs.com"
-            target="_blank"
-          >Discord Community</a>
-        </p>
+      <v-img src height="194"></v-img>
+
+      <v-card-text>Visit ten places on our planet that are undergoing the biggest changes today.</v-card-text>
+
+      <v-card-actions>
+        <v-btn icon>
+          <v-icon color="yellow">mdi-star</v-icon>
+        </v-btn>
+        <v-btn text color="deep-purple accent-4">Read</v-btn>
+        <v-spacer></v-spacer>
+        <v-btn icon>
+          <v-icon>mdi-heart</v-icon>
+        </v-btn>
+        <v-btn icon>
+          <v-icon>mdi-share-variant</v-icon>
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+    <h1 class="display-1 mb-2">Edit Form</h1>
+
+    <v-row>
+      <v-col cols="8">
+        <v-text-field v-model="first" label="First Name" filled></v-text-field>
+      </v-col>
+      <v-col cols="8">
+        <About4 />
       </v-col>
     </v-row>
-
-    <v-form ref="form" v-model="valid" lazy-validation>
-      <v-text-field v-model="name" :counter="10" :rules="nameRules" label="お名前" required></v-text-field>
-
-      <v-text-field v-model="email" :rules="emailRules" label="メールアドレス" required></v-text-field>
-
-      <v-text-field v-model="password" :rules="passwordRules" label="パスワード" required></v-text-field>
-
-      <v-checkbox
-        v-model="checkbox"
-        :rules="[v => !!v || 'ご利用には利用規約に同意する必要があります!']"
-        label="利用規約に同意"
-        required
-      ></v-checkbox>
-
-      <v-btn :disabled="!valid" color="success" class="mr-4" @click="validate">アカウント登録</v-btn>
-
-      <v-btn color="error" class="mr-4" @click="reset">クリア</v-btn>
-    </v-form>
-    <div class="text-center ma-2">
-      <v-snackbar v-model="snackbar">
-        {{ snackbartext }}
-        <v-btn color="pink" text @click="snackbar = false">Close</v-btn>
-      </v-snackbar>
-    </div>
+    <v-fab-transition>
+      <v-btn :key="fabicon" :color="fabcolor" fab large dark bottom left class="v-btn--example">
+        <v-icon>mdi-plus</v-icon>
+      </v-btn>
+    </v-fab-transition>
   </v-container>
 </template>
 
 <script>
 // axiosをインポート
+import About4 from "../views/About4";
 import axios from "axios";
 import store from "@/store/index.js";
 export default {
@@ -51,7 +56,8 @@ export default {
     snackbar: false,
     snackbartext: "",
     valid: true,
-
+    fabicon: "mid-plus",
+    fabcolor: "red",
     name: "",
     nameRules: [
       v => !!v || "お名前が必要",
@@ -69,7 +75,9 @@ export default {
     ],
     checkbox: false
   }),
-
+  components: {
+    About4
+  },
   methods: {
     validate() {
       if (this.$refs.form.validate()) {
