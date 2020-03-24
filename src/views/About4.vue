@@ -91,15 +91,6 @@ export default {
       Paragraph,
       HardBreak, // line break on Shift + Ctrl + Enter
       Image,
-      [
-        Heading,
-        {
-          // Options that fall into the tiptap's extension
-          options: {
-            levels: [1, 2, 3]
-          }
-        }
-      ],
       TodoList,
       [
         TodoItem,

@@ -29,18 +29,32 @@
       </v-card-actions>
     </v-card>
     <h1 class="display-1 mb-2">Edit Form</h1>
-    <v-card>
-      <v-row justify="center" align-content="center">
-        <v-col cols="8">
-          <v-text-field v-model="first" label="First Name" filled></v-text-field>
-        </v-col>
-        <v-col cols="8">
-          <About4 />
-        </v-col>
-      </v-row>
-    </v-card>
+    <v-container fluid fill-height>
+      <v-flex v-for="(micropost, index) in micropostList" :key="index">
+        <v-card>
+          <v-row justify="center" align-content="center">
+            <v-col cols="8">
+              <v-text-field v-model="first" label="First Name" filled></v-text-field>
+            </v-col>
+            <v-col cols="8">
+              <About4 />
+            </v-col>
+          </v-row>
+        </v-card>
+      </v-flex>
+    </v-container>
     <v-fab-transition>
-      <v-btn :key="fabicon" :color="fabcolor" fab large dark bottom left class="v-btn--example">
+      <v-btn
+        :key="fabicon"
+        :color="fabcolor"
+        fab
+        large
+        dark
+        bottom
+        left
+        class="v-btn--example"
+        @click="addCategorySession"
+      >
         <v-icon>mdi-plus</v-icon>
       </v-btn>
     </v-fab-transition>
@@ -53,7 +67,35 @@ import About4 from "../views/About4";
 import axios from "axios";
 import store from "@/store/index.js";
 export default {
+  created: function() {
+    axios
+      .get("http://localhost:3000/api/v1/categoryforms", {
+        headers: {
+          Authorization: `Bearer ${store.state.auth.login.token}`
+        }
+      })
+      .then(res => {
+        // 成功時
+        console.log(res.data);
+        // userInfoListにapiで取得した情報を格納
+        this.micropostList = res.data.data;
+      })
+      .catch(err => {
+        // 失敗時
+        console.log(err);
+        // トークンが正しくなければログイン画面にリダイレクト
+        if (err.response.status == 401) {
+          this.$router.push({
+            path: "/login",
+            query: { backuri: this.$route.fullPath }
+          });
+        } else {
+          alert("情報を取得できませんでした。時間をおいてやり直してください。");
+        }
+      });
+  },
   data: () => ({
+    micropostList: {},
     snackbar: false,
     snackbartext: "",
     valid: true,
@@ -83,29 +125,39 @@ export default {
     validate() {
       if (this.$refs.form.validate()) {
         axios
-          .post("http://localhost:3000/api/v1/users", {
-            name: this.name,
-            email: this.email,
-            password: this.password
+          .get("http://localhost:3000/api/v1/categoryforms", {
+            headers: {
+              Authorization: `Bearer ${store.state.auth.login.token}`
+            }
           })
           .then(res => {
             // 成功時
             console.log(res.data);
-            this.snackbartext = res.data.data.token;
-            this.snackbar = true;
-            store.dispatch("setLoginInfo", res.data.data);
-            this.$router.push("/micropost");
+            // userInfoListにapiで取得した情報を格納
+            this.micropostList = res.data.data;
           })
           .catch(err => {
             // 失敗時
             console.log(err);
-            this.snackbartext = err;
-            this.snackbar = true;
+            // トークンが正しくなければログイン画面にリダイレクト
+            if (err.response.status == 401) {
+              this.$router.push({
+                path: "/login",
+                query: { backuri: this.$route.fullPath }
+              });
+            } else {
+              alert(
+                "情報を取得できませんでした。時間をおいてやり直してください。"
+              );
+            }
           });
       }
     },
     reset() {
       this.$refs.form.reset();
+    },
+    addCategorySession() {
+      micropostList.push({ 惑星: "火星" });
     }
   }
 };
