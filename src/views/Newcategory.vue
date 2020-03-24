@@ -29,15 +29,16 @@
       </v-card-actions>
     </v-card>
     <h1 class="display-1 mb-2">Edit Form</h1>
-
-    <v-row>
-      <v-col cols="8">
-        <v-text-field v-model="first" label="First Name" filled></v-text-field>
-      </v-col>
-      <v-col cols="8">
-        <About4 />
-      </v-col>
-    </v-row>
+    <v-card>
+      <v-row>
+        <v-col cols="8">
+          <v-text-field v-model="first" label="First Name" filled></v-text-field>
+        </v-col>
+        <v-col cols="8">
+          <About4 />
+        </v-col>
+      </v-row>
+    </v-card>
     <v-fab-transition>
       <v-btn :key="fabicon" :color="fabcolor" fab large dark bottom left class="v-btn--example">
         <v-icon>mdi-plus</v-icon>
