@@ -30,7 +30,7 @@
     </v-card>
     <h1 class="display-1 mb-2">Edit Form</h1>
     <v-card>
-      <v-row>
+      <v-row justify="center" align-content="center">
         <v-col cols="8">
           <v-text-field v-model="first" label="First Name" filled></v-text-field>
         </v-col>
