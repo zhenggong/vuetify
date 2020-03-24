@@ -7,24 +7,6 @@
           <v-btn flat outline color="primary" @click="getUserInfo();">データを取得</v-btn>
         </template>
         <v-card>
-          <v-container>
-            <v-progress-linear
-              v-model="post_pl"
-              :active="post_lp_active"
-              :background-opacity="post_lp_opacity"
-              :bottom="post_lp_bottom"
-              :buffer-value="post_lp_buffer"
-              :height="post_lp_height"
-              :indeterminate="post_lp_indeterminate"
-              :query="post_lp_query"
-              :rounded="post_lp_rounded"
-              :stream="post_lp_stream"
-              :striped="post_lp_striped"
-              :top="post_lp_top"
-              :value="post_lp_value"
-              color="light-blue"
-            ></v-progress-linear>
-          </v-container>
           <v-card-title>
             <v-btn color="blue darken-1" text @click="dialog = false">キャンセル</v-btn>
             <v-spacer></v-spacer>

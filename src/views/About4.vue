@@ -1,94 +1,116 @@
 <template>
-  <v-container>
-    <v-row>
-      <editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
-        <div>
-          <v-btn
-            text
-            icon
-            :class="{ 'is-active': isActive.heading({ level: 1 }) }"
-            @click="commands.heading({level: 1})"
-          >
-            <b>H1</b>
-          </v-btn>
-          <v-btn text icon :class="{ 'is-active': isActive.bold() }" @click="commands.bold">
-            <v-icon>mdi-format-bold</v-icon>
-          </v-btn>
-
-          <v-btn
-            text
-            icon
-            :class="{ 'is-active': isActive.underline() }"
-            @click="commands.underline"
-          >
-            <v-icon>mdi-format-underline</v-icon>
-          </v-btn>
-
-          <v-btn text icon @click="loadImage(commands.image)">
-            <v-icon>mdi-image</v-icon>
-          </v-btn>
-        </div>
-      </editor-menu-bar>
-    </v-row>
-    <v-row>
-      <v-col cols="12">
-        <editor-content class="editor-box" :editor="editor" />
-      </v-col>
-    </v-row>
-    <v-btn color="primary">完成</v-btn>
-  </v-container>
+  <div>
+    <tiptap-vuetify v-model="content" :extensions="extensions" />
+    <div class="tiptap-vuetify-editor__content" v-html="content" />
+  </div>
 </template>
 
-
 <script>
-import { Editor, EditorContent, EditorMenuBar } from "tiptap";
-import { Heading, Bold, Underline, Image } from "tiptap-extensions";
+import {
+  // component
+  TiptapVuetify,
+  // extensions
+  Heading,
+  Bold,
+  Italic,
+  Strike,
+  Underline,
+  Code,
+  Paragraph,
+  BulletList,
+  OrderedList,
+  ListItem,
+  Link,
+  Blockquote,
+  HardBreak,
+  HorizontalRule,
+  History,
+  Image,
+  TodoList,
+  TodoItem
+} from "tiptap-vuetify";
+
 export default {
-  components: {
-    EditorContent,
-    EditorMenuBar
-  },
-  data() {
-    return {
-      editor: new Editor({
-        content: `Type here...
-        `,
-        extensions: [
-          new Heading({ levels: [1, 2, 3] }),
-          new Bold(),
-          new Underline(),
-          new Image()
-        ]
-      })
-    };
-  },
-  methods: {
-    loadImage: function(command) {
-      command({
-        src:
-          "https://66.media.tumblr.com/dcd3d24b79d78a3ee0f9192246e727f1/tumblr_o00xgqMhPM1qak053o1_400.gif"
-      });
-    }
-  },
-  beforeDestroy() {
-    this.editor.destroy();
-  }
+  components: { TiptapVuetify },
+  data: () => ({
+    extensions: [
+      // Render in the Bubble menu
+      [
+        Link,
+        {
+          renderIn: "bubbleMenu"
+        }
+      ],
+      [
+        Underline,
+        {
+          renderIn: "bubbleMenu"
+        }
+      ],
+      [
+        Strike,
+        {
+          renderIn: "bubbleMenu"
+        }
+      ],
+      [
+        Bold,
+        {
+          renderIn: "bubbleMenu",
+          // extension's options
+          options: {
+            levels: [1, 2, 3]
+          }
+        }
+      ],
+      // Render in the toolbar
+      [
+        Blockquote,
+        {
+          renderIn: "toolbar"
+        }
+      ],
+      // You can use a short form, the default "renderIn" is "'toolbar'"
+      History,
+      Strike,
+      Italic,
+      ListItem, // if you need to use a list (BulletList, OrderedList)
+      BulletList,
+      OrderedList,
+      [
+        Heading,
+        {
+          // Options that fall into the tiptap's extension
+          options: {
+            levels: [1, 2, 3]
+          }
+        }
+      ],
+      Code,
+      HorizontalRule,
+      Paragraph,
+      HardBreak, // line break on Shift + Ctrl + Enter
+      Image,
+      [
+        Heading,
+        {
+          // Options that fall into the tiptap's extension
+          options: {
+            levels: [1, 2, 3]
+          }
+        }
+      ],
+      TodoList,
+      [
+        TodoItem,
+        {
+          options: {
+            nested: true
+          }
+        }
+      ]
+    ],
+    content: ``
+  })
 };
 </script>
-<style >
-.editor-box > * {
-  border-color: grey;
-  border-style: solid;
-  border-width: 1px;
-}
-
-.is-active {
-  border-color: grey;
-  border-style: solid;
-  border-width: 1px;
-}
-/* *:focus {
-    outline: none;
-}  */
-</style>
-
