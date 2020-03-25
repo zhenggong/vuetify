@@ -30,7 +30,7 @@
     </v-card>
     <h1 class="display-1 mb-2">Edit Form</h1>
     <v-container fluid fill-height>
-      <v-flex v-for="(micropost, index) in micropostList" :key="index">
+      <v-flex v-for="(element, elementkey) in elements" :key="elementkey">
         <v-card>
           <v-row justify="center" align-content="center">
             <v-col cols="8">
@@ -95,28 +95,14 @@ export default {
       });
   },
   data: () => ({
-    micropostList: {},
+    title: "",
+    elements: { "1": "1" },
+    addelement: { "1": "1" },
     snackbar: false,
     snackbartext: "",
     valid: true,
     fabicon: "mid-plus",
-    fabcolor: "red",
-    name: "",
-    nameRules: [
-      v => !!v || "お名前が必要",
-      v => (v && v.length <= 10) || "Name must be less than 10 characters"
-    ],
-    email: "",
-    emailRules: [
-      v => !!v || "メールアドレスが必要",
-      v => /.+@.+\..+/.test(v) || "メールアドレスのフォームをご確認ください"
-    ],
-    password: "",
-    passwordRules: [
-      v => !!v || "Password is required",
-      v => (v && v.length >= 6) || "Password must be more than 6 characters"
-    ],
-    checkbox: false
+    fabcolor: "red"
   }),
   components: {
     About4
@@ -157,7 +143,9 @@ export default {
       this.$refs.form.reset();
     },
     addCategorySession() {
-      micropostList.push({ 惑星: "火星" });
+      console.log("下がelement");
+      console.log(elements);
+      elements.merge(addelement);
     }
   }
 };
