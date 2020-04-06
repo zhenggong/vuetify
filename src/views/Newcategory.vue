@@ -30,7 +30,7 @@
     </v-card>
     <h1 class="display-1 mb-2">Edit Form</h1>
     <v-container fluid fill-height>
-      <v-flex v-for="(element, elementkey) in elements" :key="elementkey">
+      <v-flex>
         <v-card>
           <v-row justify="center" align-content="center">
             <v-col cols="8">
@@ -96,8 +96,6 @@ export default {
   },
   data: () => ({
     title: "",
-    elements: { "1": "1" },
-    addelement: { "1": "1" },
     snackbar: false,
     snackbartext: "",
     valid: true,
